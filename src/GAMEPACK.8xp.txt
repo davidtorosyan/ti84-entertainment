@@ -1,0 +1,641 @@
+"By David T
+"9/8/2010
+
+ClrHome
+Output(1,1,"Jimbo's
+Output(2,1,"Cube
+Output(3,1,"Ent.
+Output(8,1,"2010
+4->X:6->Y
+For(C,Y,Y+4,2)
+For(R,X,X+2)
+Output(R,C,"&i
+End:X+1->X:End
+8->X:12->Y
+For(C,Y,Y+4,2)
+For(R,X,X-2,&-1):Output(R,C,"&pi
+End:X-1->X:End
+Output(3,7,"&e
+Output(2,9,"&e
+Output(4,9,"&e
+Output(1,11,"&e
+Output(3,11,"&e
+Output(5,11,"&e
+Output(2,13,"&e
+Output(4,13,"&e
+Output(3,15,"&e
+Pause 
+ClrHome
+
+
+Normal
+4->dim(&listHISCR
+Lbl 0
+ClrHome
+Menu("   Game Pack    ","Pong",PO,"Race",RA,"Snake",SN,"Stacker",ST,"Timing",TI,"Exit",EX)
+
+Lbl EX:ClrHome
+Stop
+
+Lbl PO
+
+ClrHome
+
+4->A:4->B
+A->F:B->H
+4->X:14->Y
+X->U:Y->V
+&-1->C:&-1->D
+0->L:0->R
+1->T
+
+Menu("DIFFICULTY:","Beginner",1,"Intermediate",2,"Expert",3,"Back",0)
+
+Lbl 1:2->Z
+Goto 4
+Lbl 2:4->Z
+Goto 4
+Lbl 3:7->Z
+Goto 4
+
+Lbl 4
+
+ClrHome
+
+For(I,1,16)
+Output(1,I,"-"):Output(8,I,"-"):End
+Output(8,7,"PONG")
+
+Repeat 0
+
+Output(1,6,L)
+Output(1,11,R)
+If L=9:Then
+Output(4,6,"WINNER"):Pause 
+Goto 0:Else
+If R=9:Then
+Output(4,6,"LOSER!"):Pause 
+Goto PO:End:End
+
+If T:Then
+Output(U,V," "):Output(X,Y,"*"):
+If B!=H:Then
+Output(H,16," "):Output(H+1,16," "):End
+
+Output(B,16,"]"):Output(B+1,16,"]")
+End
+
+If A!=F:Then
+Output(F,1," "):If Z!=7
+Output(F+1,1," "):End
+
+Output(A,1,"["):If Z!=7
+Output(A+1,1,"[")
+
+If T:Then
+X->U
+Y->V
+
+If X=2 or X=7
+&-C->C
+
+If Y<=2 or Y>=15
+Then
+If Y=2:Then
+If A=X:&-D->D
+If A+1=X and Z!=7:&-D->D:End
+
+If Y=15:Then
+If B=X or B+1=X:&-D->D:End
+
+If Y=1:Then
+R+1->R:&-D->D
+4->X:4->Y:End
+
+If Y=16:Then
+L+1->L:&-D->D
+4->X:13->Y:End
+End
+
+X+C->X
+Y+D->Y
+
+X->&theta
+If 0=randInt(0,Z):U->&theta
+
+B->H
+If Y>=8 and D=1
+Then
+If &theta>B and B!=6
+B+1->B
+If &theta<B:B-1->B
+End
+End
+
+A->F
+0->G
+getKey->G
+If G!=0:Then
+If G=45:Then
+Goto PO:Else
+If G=105:Then
+Output(8,6,"PAUSED"
+Pause 
+Output(8,6,"-PONG-"):Else
+
+6->J
+If Z=7:7->J
+If G=25 and A>2:Then
+A-1->A:Else
+If G=34 and A<J:A+1->A
+End:End:End
+
+End
+
+If Z=2:Then
+If T:Then
+0->T:Else:
+1->T:End
+End
+End
+End
+
+
+
+
+
+
+
+
+
+
+Lbl RA
+ClrHome
+
+Menu("      RACE      ","Play",PR,"Reset HiScore",HR,"Back",0)
+
+Lbl HR
+
+ClrHome
+Menu(" Reset HiScore? ","No",RA,"Yes",YR)
+Lbl YR
+0->&listHISCR(4
+Output(1,1,"HiScore Reset
+Output(3,1,"Press enter
+Output(4,1,"to continue.
+Pause 
+
+Goto RA
+
+Lbl PR
+
+8->X:0->G
+1->N:0->&theta
+1->L:0->S
+randInt(6,10)->C:randInt(6,10)->D:randInt(6,10)->E
+
+For(I,1,8)
+Output(I,1,"!!!!!     !!!!!!"
+End
+Output(8,X,"^
+Output(1,1,"+!+!+     +!+!+!
+
+While 1
+
+If N=8:Then
+randInt(6,10)->C:randInt(6,10)->D:randInt(6,10)->E
+&theta+1->&theta
+If int(&theta/20)=&theta/20:Then
+Output(L,6,"*****
+1->S
+L+1->L:End
+End
+Output(N,1,"!!!!!     !!!!!!
+N+1->N
+If N>8:L->N
+Output(N,1,"+!+!+     +!+!+!
+Output(N,C,"V
+Output(N,D,"V
+Output(N,E,"V
+If S:Then
+Output(8,X,"*
+Else
+Output(8,X,"^
+End
+
+If N=8 and (X=C or X=D or X=E)
+S-1->S
+
+If S<0:Then
+Output(8,X,"&square
+Output(1,6,"Score
+Output(2,6,"     
+Output(2,7,&theta
+Pause 
+Output(2,6,"     
+Output(1,6,"HiScr
+Output(2,7,&listHISCR(4
+
+Pause 
+
+If &theta>&listHISCR(4
+Then
+&theta->&listHISCR(4
+Output(1,6," New 
+Output(2,6,"HiScr
+Pause 
+End
+Goto RA
+End
+
+0->G
+getKey->G
+If G!=0:Then
+If G=24:Then
+If X!=6:Then
+Output(8,X," 
+X-1->X:End
+Else
+If G=26:Then
+If X!=10:Then
+Output(8,X," 
+X+1->X:End
+Else
+If G=105:Then
+Pause 
+Else
+If G=45:Then
+Goto RA
+End
+End:End:End
+End
+End
+
+
+
+
+
+
+
+
+
+Lbl SN
+ClrHome
+Menu("     SNAKE!     ","Play",PS,"Reset HiScore",HS,"Back",0)
+
+Lbl HS
+ClrHome
+Menu(" RESET HISCORE? ","No",SN,"Yes",YS)
+Lbl YS
+0->&listHISCR(2)
+Disp "HiScore Reset","","Press enter","to continue."
+Pause 
+Goto SN
+
+Lbl PS
+DelVar &listS
+128->dim(&listS)
+ClrHome
+4->X:2->Y
+0->C:1->D
+X->U:Y->V
+X->A:Y->B
+0->N:0->K
+0->G:0->&theta
+1->F:0->L
+
+randInt(3,14)->B:randInt(3,6)->A
+
+Disp "-----SNAKE!-----"
+Output(8,1,"----------------")
+
+For(I,2,7)
+Output(I,1,"!"):Output(I,16,"!"):End
+
+Repeat 0
+If F
+Output(A,B,"&square")
+If C=&-1:Then
+Output(X,Y,"^"):Else
+If C=1:Then
+Output(X,Y,"&v"):Else
+If D=&-1:Then
+Output(X,Y,"<"):Else
+Output(X,Y,">"):End:End:End
+
+If N>=1
+Output(X-C,Y-D,"&deg")
+Output(U,V," "):
+0->G
+getKey->G
+
+If G!=0:Then
+
+If G=25 and C=0:Then
+&-1->C:0->D:Else
+If G=34 and C=0:Then
+1->C:0->D:Else
+If G=24 and D=0:Then
+&-1->D:0->C:Else
+If G=26 and D=0:Then
+1->D:0->C:End
+End:End:End
+
+If G=105:Then
+Output(8,6,"PAUSED"):Pause 
+Output(8,6,"------"):Else
+If G=45:Then
+DelVar &listS
+Goto SN:End
+End
+
+End
+
+X+C->X
+Y+D->Y
+K+1->K
+
+K->&listS(16((X-C)-1)+(Y-D))
+
+If (X-C=A and Y-D=B)
+Then
+randInt(3,14)->B:randInt(3,6)->A
+N+1->N
+
+If &listS(16(A-1)+B)>=K-N or &listS(16(A-1)+B)=&-1
+0->F
+
+Else
+
+&listS(16(U-1)+V)+1->&theta
+
+If &theta=&listS(16((U-1)-1)+V):Then
+U-1->U:Else
+If &theta=&listS(16((U-1)+1)+V):Then
+U+1->U:Else
+If &theta=&listS(16(U-1)+(V-1)):Then
+V-1->V:Else
+If &theta=&listS(16(U-1)+(V+1)):V+1->V
+End:End:End
+End
+
+If not(F):Then
+randInt(3,14)->B:randInt(3,6)->A
+
+If &listS(16(A-1)+B)<K-N and &listS(16(A-1)+B)!=&-1
+1->F
+End
+
+If X<2 or X>7 or Y<2 or Y>15 or &listS(16(X-1)+Y)>=K-N:Then
+X-C->X:Y-D->Y
+If C=&-1
+Output(X,Y,"^"):If C=1
+Output(X,Y,"&v"):If D=&-1
+Output(X,Y,"<"):If D=1
+Output(X,Y,">")
+Output(8,5,"GAMEOVER")
+Pause 
+Output(8,5,"SCORE: ----")
+11->&theta
+If N<10:12->&theta
+Output(8,&theta,N)
+Pause 
+Output(8,4,"HISCORE: ----")
+12->&theta
+If &listHISCR(2)<10:13->&theta
+Output(8,&theta,&listHISCR(2))
+Pause 
+
+If N>&listHISCR(2)
+Then
+N->&listHISCR(2)
+Output(8,3,"NEW HISCORE!"
+Pause 
+End
+
+DelVar &listS
+Goto SN:End
+
+&-1->&listS(16(X-1)+Y)
+End
+
+
+
+
+
+
+Lbl ST
+
+0->R:0->C
+0->D:0->Z
+0->K:0->G
+3->A:6->B
+
+ClrHome
+Menu("    STACKER!    ","Play",PG,"Reset HiScore",HG,"Back",0)
+
+Lbl HG
+ClrHome
+Menu(" RESET HISCORE? ","No",ST,"Yes",YG)
+Lbl YG
+0->&listHISCR(3)
+Disp "HiScore Reset","","Press enter","to continue."
+Pause 
+Goto ST
+
+Lbl PG
+ClrHome
+Disp "    STACKER!"
+
+For(I,1,8)
+Output(I,1,"!"):Output(I,16,"!"):End
+
+Output(A,1,"+"):Output(B,1,"+"):Output(A,16,"+"):Output(B,16,"+")
+For(I,3,14)
+Output(2,I,"-"):End
+
+
+For(R,8,3,&-1)
+randInt(3,13)->C
+While D=0
+randInt(&-1,1)->D:End
+
+0->Z
+Repeat Z
+C+D->C
+Output(R,C-D,"  ")
+Output(R,C,"[]")
+If C=2 or C=14
+&-D->D
+
+For(I,1,20(6-K)):End
+
+0->G
+getKey->G
+If G=45:Goto ST
+If G=105:Then
+1->Z
+If R=8:C->P
+If C!=P:Then
+Output(1,5,"Gameover")
+Pause 
+Output(1,5,"Score:     ")
+Output(1,12,K)
+Pause 
+Output(1,4,"HiScore: ")
+Output(1,13,&listHISCR(3))
+Pause 
+If K>&listHISCR(3)
+Then
+Output(1,3,"New HiScore  ")
+K->&listHISCR(3)
+Pause 
+End
+Goto ST:End
+If R=3 and C=P
+Then
+For(R,3,7)
+For(T,1,100)
+End
+Output(R,C,"  ")
+
+Output(A,1,"!"):Output(B,1,"!"):Output(A,16,"!"):Output(B,16,"!")
+
+A+1->A
+B+1->B
+If A>8:1->A
+If B>8:1->B
+Output(A,1,"+"):Output(B,1,"+"):Output(A,16,"+"):Output(B,16,"+")
+End
+8->R
+End
+C->P
+End
+End
+K+1->K
+End
+
+
+
+
+
+
+
+Lbl TI
+
+ClrHome
+Menu("     TIMING     ","Play",PT,"Reset HiScore",HT,"Instructions",IT,"Back",0)
+
+Lbl IT
+ClrHome
+Disp "  INSTRUCTIONS  ",""
+Disp "Press 2ND when  "
+Disp "the signs align.","Don't miss!"
+Disp "ENTER to pause,"
+Disp "CLEAR to exit."
+Pause 
+Goto TI
+
+Lbl HT
+ClrHome
+For(I,1,16)
+Output(1,I,"-"):Output(8,I,"-"):End
+For(I,2,7)
+Output(I,1,"!"):Output(I,16,"!"):End
+
+Output(4,5,"HiScore:"
+Output(5,8,&listHISCR(1))
+Pause 
+ClrHome
+Menu(" RESET HISCORE? ","No",TI,"Yes",YT)
+Lbl YT
+0->&listHISCR(1)
+Disp "HiScore Reset","","Press enter","to continue."
+Pause 
+Goto TI
+
+Lbl PT
+Disp "     TIMING"
+
+For(I,3,14)
+Output(2,I,"-"):Output(6,I,"-"):End
+
+For(I,3,5)
+Output(I,3,"!"):Output(I,14,"!"):End
+
+4->X:1->A
+12->Y:&-1->B
+0->K:0->G
+0->T:0->&theta
+
+Output(8,1,"Points:")
+Output(8,8,K)
+
+Output(7,1,"Time:")
+Output(7,6,"30")
+
+&ti84plusstartTmr+30->T
+Repeat 0
+X+A->X:Y+B->Y
+
+Output(4,X-A," ")
+Output(4,X,"+")
+Output(5,Y-B," ")
+Output(5,Y,"-")
+If X=4 or X=13 or 1=randInt(1,14) and X!=Y:&-A->A
+
+If Y=4 or Y=13 or 1=randInt(1,14) and X!=Y:&-B->B
+
+For(I,1,50-2K)
+End
+
+0->G
+getKey->G
+If G=105:Then
+T-&ti84plusstartTmr->&theta
+Output(7,6,"PAUSED")
+Pause 
+Output(7,6,"      ")
+&ti84plusstartTmr+&theta->T
+End
+
+If G=45:Goto TI
+If G=21:Then
+
+If X=Y:Then
+K+1->K
+T+2->T
+Else
+T-2->T:End
+
+If K<0:0->K
+If T-&ti84plusstartTmr<0:&ti84plusstartTmr->T
+
+Output(8,8,"   ")
+Output(8,8,K)
+End
+
+T-&ti84plusstartTmr->&theta
+If &theta<=9:Then
+Output(7,6,"0"):Output(7,7,&theta)
+Else
+Output(7,6,&theta)
+End
+
+If &theta=0 or T=0
+Then
+Pause 
+Output(8,1,"HiScore:")
+Output(8,9,&listHISCR(1))
+Pause 
+If K>&listHISCR(1)
+Then
+K->&listHISCR(1)
+Output(8,1,"New HiScore!")
+Pause 
+End
+Goto TI
+
+End
+
+End

@@ -1,0 +1,92 @@
+"By
+"David Torosyan
+"10/12/2013
+
+Lbl 0
+ClrHome
+Menu("      CMAT      ","Run",RU,"Help",H,"Exit",EX)
+
+Lbl EX
+Stop
+
+Lbl H
+Disp "      HELP      "
+Disp "Solves complex"
+Disp "matrices."
+Disp "Input augmented"
+Disp "matrix as:"
+Disp "[A]: real part"
+Disp "[B]: imag. part"
+
+Pause 
+Goto 0
+
+Lbl RU
+
+Disp "      CMAT      "
+Disp "Computing...
+
+2->dim(&listCA)
+2->dim(&listCB)
+2->dim(&listCC)
+
+dim([A])->&listCA
+dim([B])->&listCB
+
+If sum(abs(&listCA-&listCB))!=0:Then
+Disp "ERR:[A] and [B]"
+Disp "must have the"
+Disp "same dimensions."
+Goto CL
+End
+
+If &listCA(2)!=&listCA(1)+1:Then
+Disp "ERR:Input must"
+Disp "be augmented"
+Disp "square matrices."
+Goto CL
+End
+
+&listCA*2+1->&listCC
+&listCC->dim([C])
+
+For(I,1,&listCA(1)
+For(J,1,&listCA(2)
+2*I-1->S
+2*J-1->T
+[A](I,J)->R
+[B](I,J)->X
+R->[C](S,T)
+R->[C](S+1,T+1)
+&-X->[C](S,T+1)
+X->[C](S+1,T)
+End
+End
+
+&listCC(1)->&listCC(2)
+&listCC(1)-1->&listCC(1):&listCC->dim([C])
+
+&listCA(1)->dim(&listCR
+rref([C])->[C]
+
+&listCC(2)->L
+For(I,1,&listCC(1),2)
+[C](I,L)->R
+[C](I+1,L)->X
+(I+1)/2->N
+R+&iX->&listCR(N)
+End
+
+&listCR->&L1
+Disp "Answer stored in"
+Disp "list &L1."
+
+Lbl CL
+
+DelVar &listCA
+DelVar &listCB
+DelVar &listCC
+DelVar &listCR
+DelVar [C]
+
+Stop

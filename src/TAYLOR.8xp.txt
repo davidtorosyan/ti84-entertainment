@@ -1,0 +1,71 @@
+ClrHome
+Disp " TAYLOR SERIES  "
+Input "Center: ",C
+Input "Terms: ",T
+Disp "Calculated: "
+
+.01->A
+"0"->Str1
+
+{0,1->&L1
+{0,C->&L2
+&statLinReg(ax+b) &Y2
+Equ>String(&Y2,Str2
+sub(Str2,1,length(Str2)-3->Str2
+
+
+For(I,0,T)
+
+D->dim(&listD)
+I->D:C->V:prgmNDERIV
+DelVar &listD
+
+If R!=0:Then
+R/I!->F
+
+{0,1->&L1
+{0,F->&L2
+&statLinReg(ax+b) &Y2
+Equ>String(&Y2,Str3
+sub(Str3,1,length(Str3)-3->Str3
+"+"+Str3->Str3
+If I>0:Then
+If C=0:Then
+Str3+"X"->Str3
+Else
+Str3+"(X-"+Str2+")"->Str3
+End
+End
+
+If I>1:Then
+{0,1->&L1
+{0,I->&L2
+&statLinReg(ax+b) &Y2
+Equ>String(&Y2,Str4
+sub(Str4,1,length(Str4)-3->Str4
+Str3+"^"+Str4->Str3
+
+End
+
+Str1+Str3->Str1
+
+End
+
+Output(4,13,I)
+
+End
+
+sub(Str1,3,length(Str1)-2)->Str1
+""->&Y2
+
+C-&pi->&@c&rad
+C+&pi->&@c&deg
+&@c6->R
+8->&@c6
+ZoomFit
+R->&@c6
+(&@c&^-1+&@c&^2)/2->Y
+Y-(2/3)&pi->&@c&^-1
+Y+(2/3)&pi->&@c&^2
+
+Str1->&Y2

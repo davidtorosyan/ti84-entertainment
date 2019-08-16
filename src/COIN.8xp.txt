@@ -1,0 +1,97 @@
+"By David T
+"02/04/2011"
+
+ClrHome
+Output(1,1,"Jimbo's":Output(2,1,"Cube":Output(3,1,"Ent.":Output(8,1,"2011":4->X:6->Y
+For(C,Y,Y+4,2)
+For(R,X,X+2)
+Output(R,C,"&i
+End:X+1->X:End
+8->X:12->Y
+For(C,Y,Y+4,2)
+For(R,X,X-2,&-1):Output(R,C,"&pi
+End:X-1->X:End
+Output(3,7,"&e
+Output(2,9,"&e
+Output(4,9,"&e
+Output(1,11,"&e
+Output(3,11,"&e
+Output(5,11,"&e
+Output(2,13,"&e
+Output(4,13,"&e
+Output(3,15,"&e
+Pause 
+ClrHome
+
+&statPlotsOff 
+StoreGDB 9
+RecallGDB 0
+AxesOff
+ClrDraw
+
+1->H:1->X:0->&theta
+0->I:0->T:0->C
+0->G
+
+"              H:Visual state  X:Planned state &theta:Num flips     I,T,C:Count     G:Input         Labels: F,G
+"
+
+RecallPic 1
+Goto G
+
+Lbl F
+For(I,1,&theta)
+
+ClrDraw
+RecallPic 3
+For(T,1,20)
+:End
+
+ClrDraw
+If H=0:Then
+RecallPic 1
+Else
+RecallPic 2
+:End
+not(H)->H
+For(T,1,20)
+:End
+
+End
+
+If &theta=1:Goto G
+
+For(C,1,2)
+For(I,19,21)
+Pxl-Change(31,47+I)
+Pxl-Change(31-(I-6),47+(I-6))
+Pxl-Change(31-I,47)
+Pxl-Change(31-(I-6),47-(I-6))
+Pxl-Change(31,47-I)
+Pxl-Change(31+(I-6),47-(I-6))
+Pxl-Change(31+I,47)
+Pxl-Change(31+(I-6),47+(I-6))
+End
+End
+
+Lbl G
+getKey
+Repeat max(G={45,105,25,34,75
+getKey->G:End
+
+If G=25 or G=34:Then
+1-X->X:1->&theta
+Goto F:End
+
+If G=105:Then
+randInt(0,1)->X
+(H!=X)+4->&theta
+Goto F:End
+
+If G=45:Then
+ClrDraw
+ClrHome
+RecallGDB 9
+Stop:End
+
+Goto G

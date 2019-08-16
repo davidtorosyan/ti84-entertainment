@@ -1,0 +1,13 @@
+ClrHome
+
+Menu("     LISTS      ","Clean",C,"Exit",EX)
+
+Lbl C
+&statClrList &L1,&L2,&L3,&L4,&L5,&L6
+&statPlotsOff 1,2,3
+&statSetUpEditor 
+Disp "Lists cleared."
+Goto EX
+
+Lbl EX
+""

@@ -1,0 +1,95 @@
+ClrHome
+
+Menu("    COLLIDE     ","Play",P,"EXIT",E)
+
+Lbl P
+
+"*"->Str1
+0->U:0->V
+5->R:8->C
+8->X:8->Y
+8->H:16->W
+0->S
+0->G
+
+0->N
+(H+2)W->dim(&listP)
+0->dim(&listPR)
+0->dim(&listPC)
+
+If 1=1:Then
+For(U,1,H)
+For(V,1,W)
+
+If U!=1 and U!=H and X!=1 and V!=W
+Then
+V+(W-2)->V
+End
+
+N+1->N
+U->&listPR(N)
+V->&listPC(N)
+1->&listP(UW+V)
+
+Output(U,V,"O
+End:End
+
+End
+
+
+
+getKey
+Repeat 0
+Output(R,C,Str1
+
+R->X:C->Y
+getKey->G
+If G!=0:Then
+
+If G=24:Then
+Y-1->Y
+Else
+If G=26:Then
+Y+1->Y
+Else
+If G=25 or G=21:Then
+If &listP((X+1)W+C)=1
+S-3->S
+Else
+If G=45:Then
+Goto E
+End:End:End
+End
+
+End
+
+If 1=1:Then
+If &listP((X+1)W+Y)=0:Then
+S+1->S
+Else
+If S>0
+0->S
+End
+End
+
+If 1=1:Then
+If S!=0
+X+S/abs(S)->X
+End
+
+If 1=1:Then
+If &listP(XW+Y)=0
+Then
+Output(R,C," 
+X->R:Y->C
+End
+End
+
+
+End
+
+Lbl E
+DelVar &listP
+DelVar &listPR
+DelVar &listPC
+ClrHome

@@ -1,0 +1,40 @@
+ClrHome
+Disp "     CHECK"
+
+Input "EQ 1: ",Str1
+Input "EQ 2: ",Str2
+
+If Str1!="&Y1"
+Str1->&Y1
+If Str2!="&Y2"
+Str2->&Y2
+
+Menu("CHECK FOR:","Equality",E,"1st Derivitive",D1,"2nd Derivitive",D2,"Exit",EX)
+Lbl EX:Stop
+
+Lbl E
+&Y1(2.5)->A
+&Y2(2.5)->B
+
+Goto R
+
+Lbl D1
+
+nDeriv(&Y1,X,2.5)->A
+&Y2(2.5)->B
+
+Goto R
+
+Lbl D2
+
+"nDeriv(&Y1,X,X)"->&Y3
+
+nDeriv(&Y3,X,2.5)->A
+&Y2(2.5)->B
+
+Goto R
+
+Lbl R
+Disp A
+Disp B
+Pause

@@ -1,0 +1,50 @@
+Lbl 0
+
+ClrHome
+Menu("    VECTORS     ","Dot Product",DO,"Cross Product",CR,"EXIT",EX)
+
+Lbl EX
+Stop
+
+
+Lbl DO
+
+ClrHome
+Disp "  DOT PRODUCT   "
+
+Input "->U: ",&listTU
+Input "->V: ",&listTV
+
+0->D
+For(I,1,dim(&listTU))
+D+&listTU(I)*&listTV(I)->D
+End
+
+Disp D
+
+DelVar &listTU
+DelVar &listTV
+
+Pause 
+Goto 0
+
+
+Lbl CR
+
+ClrHome
+Disp " CROSS PRODUCT  "
+
+Input "->U: ",&listTU
+Input "->V: ",&listTV
+
+&listTU(2)*&listTV(3)-&listTU(3)*&listTV(2)->I
+&-(&listTU(1)*&listTV(3)-&listTU(3)*&listTV(1))->J
+&listTU(1)*&listTV(2)-&listTU(2)*&listTV(1)->K
+
+Disp {I,J,K}
+
+DelVar &listTU
+DelVar &listTV
+
+Pause 
+Goto 0

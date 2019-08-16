@@ -1,0 +1,13 @@
+If D=0:Then
+&Y1(V)->R
+Else
+D-1->D
+V+A->V
+prgmNDERIV
+R->&listD(D+1)
+V-2A->V
+prgmNDERIV
+V+A->V
+D+1->D
+(&listD(D)-R)/(2A)->R
+End
